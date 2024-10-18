@@ -1,3 +1,4 @@
+#include <ios>
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -8,21 +9,20 @@
 
 using namespace std;
 
-int maxArea(vector<int>& height) {
+int maxProfit(vector<int>& prices) {
+    int answer {0};
     int left {0};
-    int right { static_cast<int>(height.size()-1) };
+    int right {1};
 
-    int answer = 0;
-    while (left < right) {
-        int left_wall =  {height[left]};
-        int right_wall =  {height[right]};
+    while (left < prices.size()){
+        if (right == prices.size()) return answer;
 
-        int water  = min(left_wall, right_wall) * (right - left);
-        answer  = max(answer, water);
-
-        if (left_wall < right_wall)  {
-            left++;
-        } else right--;
+        if (prices[right] < prices[left]) {
+            left = right;
+        } else {
+            answer = max(answer, prices[right]-prices[left]);
+            right++;
+        }
     }
 
     return answer;

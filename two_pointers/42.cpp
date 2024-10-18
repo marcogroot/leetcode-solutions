@@ -17,7 +17,7 @@ int trap(vector<int>& height) {
     int left { 0 };
     int right = { static_cast<int>(height.size() - 1) };
     int max_left { height[left] };
-    int max_right { height[r] };
+    int max_right { height[right] };
     int answer = 0;
 
     while (left < right) {
