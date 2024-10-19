@@ -3,8 +3,8 @@
 #include <utility>
 #include <unordered_map>
 
-// https://leetcode.com/problems/product-of-array-except-self/description/
-// 15-10-2024 @ marcogroot
+// https://leetcode.com/problems/valid-sudoku/description/
+// 16-10-2024 @ marcogroot
 
 using namespace std;
 
