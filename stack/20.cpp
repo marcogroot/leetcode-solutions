@@ -4,30 +4,28 @@
 #include <utility>
 #include <vector>
 
-// https://leetcode.com/problems/valid-parentheses/description/
-// 20-10-2024 @ marcogroot
+// https://leetcode.com/problems/daily-temperatures/description/
+// 21-10-2024 @ marcogroot
 
 using namespace std;
-bool isValid(string s) {
-  vector<char> stack;
-  unordered_map<char, char> pairs;
-  pairs['('] = ')';
-  pairs['['] = ']';
-  pairs['{'] = '}';
 
-  for (char &c : s) {
-    if (c == '(' || c == '{' || c == '[') {
-      stack.push_back(c);
+vector<int> dailyTemperatures(vector<int> &temperatures) {
+  vector<pair<int, int>> stack;
+  vector<int> answers(temperatures.size());
+
+  for (int i = 0; i < temperatures.size(); i++) {
+    int curr = temperatures[i];
+    if (stack.empty() || stack[stack.size() - 1].first >= curr) {
+      stack.push_back({curr, i});
     } else {
-      if (stack.size() == 0)
-        return false;
-      char top = stack[stack.size() - 1];
-      if (pairs[c] != top)
-        return false;
-      stack.pop_back();
+      while (!stack.empty() && stack[stack.size() - 1].first < curr) {
+        pair<int, int> top = stack[stack.size() - 1];
+        answers[top.second] = i - top.second;
+        stack.pop_back();
+      }
+      stack.push_back({curr, i});
     }
   }
-  if (stack.size() != 0)
-    return false;
-  return true;
+
+  return answers;
 }
