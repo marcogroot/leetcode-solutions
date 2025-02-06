@@ -10,11 +10,19 @@
 
 using namespace std;
 
-bool isArraySpecial(vector<int> &nums) {
-  for (int i = 1; i < nums.size(); i++) {
-    if ((nums[i] % 2) != (nums[i - 1] % 2))
-      return false;
+int removeDuplicates(vector<int> &nums) {
+  unordered_map<int, int> m;
+  vector<int> temp;
+  for (int i = 0; i < nums.size(); i++) {
+    int count = m[nums[i++]];
+    if (count <= 2) {
+      temp.push_back(nums[i]);
+    }
   }
 
-  return true;
+  for (int i = 0; i < temp.size(); i++) {
+    nums[i] = temp[i];
+  }
+
+  return temp.size();
 }
