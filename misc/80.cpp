@@ -10,11 +10,22 @@
 
 using namespace std;
 
-bool isArraySpecial(vector<int> &nums) {
-  for (int i = 1; i < nums.size(); i++) {
-    if ((nums[i] % 2) != (nums[i - 1] % 2))
-      return false;
+vector<int> dailyTemperatures(vector<int> &temperatures) {
+  vector<pair<int, int>> s;
+  vector<int> output(temperatures.size());
+  for (int i = 0; i < temperatures.size(); i++) {
+    int &temp = temperatures[i];
+    if (s.empty()) {
+      s.push_back(make_pair(temp, i));
+    } else {
+      while (!s.empty() && s.back().first < temp) {
+        pair<int, int> &temp = s.back();
+        output[temp.second] = i - temp.second;
+        s.pop_back();
+      }
+      s.push_back(make_pair(temp, i));
+    }
   }
 
-  return true;
+  return output;
 }

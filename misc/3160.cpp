@@ -12,25 +12,27 @@ using namespace std;
 
 vector<int> queryResults(int limit, vector<vector<int>> &queries) {
   unordered_map<int, int> colour_counts;
-  unordered_map<int, int> balls;
+  unordered_map<int, int> ball_colours;
 
-  vector<int> answer;
+  vector<int> answer(queries.size());
+  int i = 0;
   int distinct = 0;
   for (vector<int> &q : queries) {
     int x = q[0];
     int y = q[1];
-    int current_colour = balls[x];
-    if (colour_counts[current_colour] == 1) {
+
+    int current_colour = ball_colours[x];
+    colour_counts[current_colour]--;
+    if (colour_counts[current_colour] == 0) {
       distinct--;
     }
-    balls[x] = y;
-    colour_counts[current_colour]--;
+    ball_colours[x] = y;
+
     colour_counts[y]++;
     if (colour_counts[y] == 1) {
       distinct++;
     }
-
-    answer.push_back(distinct);
+    answer[++i] = distinct;
   }
 
   return answer;

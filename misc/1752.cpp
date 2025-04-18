@@ -19,14 +19,12 @@ bool check2(int start, vector<int> &nums) {
     }
     int curr = nums[start];
     if (curr < prev) {
-      cout << "fake " << curr << " " << prev << endl;
       return false;
     }
 
     prev = curr;
   }
 
-  cout << "asdf" << endl;
   return true;
 }
 
